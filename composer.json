@@ -14,7 +14,10 @@
     },
     "autoload": {
         "psr-4": {
-            "marcelodeandrade\\InstagramClient\\": "src/InstagramClient"
+            "instagram\\Client\\": "src/Client"
         }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.1"
     }
 }
