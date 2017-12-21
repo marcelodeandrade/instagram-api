@@ -10,7 +10,7 @@ class Client
     private $client_id;
     private $client_secret;
     private $acess_token;
-    private $redirect_url;
+    private $redirect_uri;
     private $scope;
 
     private $endpoints = [
@@ -35,10 +35,9 @@ class Client
         return $response->getBody();
     }
     
-
-    public function getAuthorization(): string
+    public function getAuthURI(): string
     {
-        return sprintf($endpoints['auth'], $this->client_id);
+        return sprintf($this->endpoints['auth'], $this->client_id, $this->redirect_uri, $this->scope);
     }
 
     public function setAccessToken(string $acess_token): void
