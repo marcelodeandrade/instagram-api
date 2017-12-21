@@ -7,9 +7,9 @@ namespace InstagramAPI;
  */
 class Client
 {
-    private $clientID;
-    private $clientSecret;
-    private $accessToken;
+    private $client_id;
+    private $client_secret;
+    private $acess_token;
 
     private $endpoints = [
         'auth' => 'https://api.instagram.com/oauth/authorize/
@@ -20,10 +20,10 @@ class Client
         'media' => 'https://api.instagram.com/v1/media/%s/likes',
     ];
 
-    public function __construct($clientID, $clientSecret)
+    public function __construct($client_id, $client_secret)
     {
-        $this->clientID = $clientID;
-        $this->clientSecret = $clientSecret;
+        $this->client_id = $client_id;
+        $this->client_secret = $client_secret;
     }
 
     public function makeRequest(array $options)
@@ -35,17 +35,17 @@ class Client
 
     public function getAuthorization() : string
     {
-        return sprintf($endpoints['auth'], $this->clientID);
+        return sprintf($endpoints['auth'], $this->client_id);
     }
 
-    public function setAccessToken(string $accessToken)
+    public function setacess_token(string $acess_token)
     {
-        $this->accessToken = $accessToken;
+        $this->acess_token = $acess_token;
     }
 
-    public function getAccessToken() : string
+    public function getacess_token() : string
     {
-        return $this->accessToken;
+        return $this->acess_token;
     }
     
     public function getMedia(string $mediaID) : string
