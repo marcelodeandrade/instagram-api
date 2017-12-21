@@ -26,7 +26,7 @@ class Client
         }, $options, array_keys($options));
     }
 
-    public function makeRequest(string $request, string $url, array $options)
+    public function makeRequest(string $request, string $url, array $options): string
     {
         return (string) (new \GuzzleHttp\Client)
         ->request($request, $url, $options)
