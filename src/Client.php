@@ -3,6 +3,9 @@
 namespace InstagramAPI;
 
 /**
+ * @author Marcelo de Andrade <andrade.asmarcelo@gmail.com>
+ * @package InstagramAPI
+ * 
  * A PHP cliente for Instagram API
  */
 class Client
@@ -21,12 +24,17 @@ class Client
     private $config;
 
     /**
-     * Property with client to make requests
+     * Client to make requests
      *
      * @var [GuzzleHttp\Client]
      */
     private $guzzleHttpClient;
 
+    /**
+     * Array with API endpoints
+     *
+     * @var array
+     */
     private $endpoints = [
         'auth' => 'https://api.instagram.com/oauth/authorize/?client_id=%s&redirect_uri=%s&response_type=code&scope=%s',
         'access_token' => 'https://api.instagram.com/oauth/access_token',
