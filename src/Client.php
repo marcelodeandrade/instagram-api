@@ -19,6 +19,12 @@ class Client
      * @var [array]
      */
     private $config;
+
+    /**
+     * Property with client to make requests
+     *
+     * @var [GuzzleHttp\Client]
+     */
     private $guzzleHttpClient;
 
     private $endpoints = [
@@ -33,18 +39,37 @@ class Client
         $this->guzzleHttpClient  = new \GuzzleHttp\Client;
     }
 
-    public function makeRequest(string $request, string $url, array $options): string
+    /**
+     * Create requests with Guzzle
+     *
+     * @param string $request_type
+     * @param string $url
+     * @param array $options
+     * @return string
+     */
+    public function makeRequest(string $request_type, string $url, array $options): string
     {
         return (string) $this->guzzleHttpClient
-        ->request($request, $url, $options)
+        ->request($request_type, $url, $options)
         ->getBody();
     }
     
+    /**
+     * Returns a string with URI to log in and authorize application
+     *
+     * @return string
+     */
     public function getAuthURI(): string
     {
         return sprintf($this->endpoints['auth'], $this->config['client_id'], $this->config['redirect_uri'], $this->config['scope']);
     }
 
+    /**
+     * After authorization, request a access_token to call api endpoints
+     *
+     * @param string $code
+     * @return void
+     */
     public function requestAccessToken(string $code): void
     {
         $options = [
@@ -60,11 +85,22 @@ class Client
         $this->setAccessToken((json_decode($requestAccessToken))->access_token);
     }
     
+    /**
+     * Set acess_token to Client
+     *
+     * @param string $acess_token
+     * @return void
+     */
     public function setAccessToken(string $acess_token): void
     {
         $this->config['acess_token'] = $acess_token;
     }
 
+    /**
+     * Returns acess_token from Client
+     *
+     * @return string
+     */
     public function getAcessToken(): string
     {
         return $this->config['acess_token'];
