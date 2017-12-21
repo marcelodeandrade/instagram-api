@@ -10,20 +10,23 @@ class Client
     private $client_id;
     private $client_secret;
     private $acess_token;
+    private $redirect_url;
+    private $scope;
 
     private $endpoints = [
         'auth' => 'https://api.instagram.com/oauth/authorize/
                     ?client_id=%s
                     &redirect_uri=%s
                     &response_type=code
-                    &scope=likes',
+                    &scope=%s',
         'media' => 'https://api.instagram.com/v1/media/%s/likes',
     ];
 
-    public function __construct($client_id, $client_secret)
+    public function __construct($options)
     {
-        $this->client_id = $client_id;
-        $this->client_secret = $client_secret;
+        array_map(function($value, $key){
+            $this->{$key} = $value;
+        }, $options, array_keys($options));
     }
 
     public function makeRequest(array $options)
