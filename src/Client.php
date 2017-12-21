@@ -36,22 +36,22 @@ class Client
     }
     
 
-    public function getAuthorization() : string
+    public function getAuthorization(): string
     {
         return sprintf($endpoints['auth'], $this->client_id);
     }
 
-    public function setacess_token(string $acess_token)
+    public function setAccessToken(string $acess_token): void
     {
         $this->acess_token = $acess_token;
     }
 
-    public function getacess_token() : string
+    public function getAcessToken(): string
     {
         return $this->acess_token;
     }
     
-    public function getMedia(string $mediaID) : string
+    public function getMedia(string $mediaID): string
     {
         return sprintf($endpoints['media'], $mediaID);
     }
