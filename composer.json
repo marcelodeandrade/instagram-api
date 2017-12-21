@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "instagram\\Client\\": "src/Client"
+            "InstagramAPI\\": "src/"
         }
     },
     "require-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace instagram;
+namespace InstagramAPI;
 
 /**
  * A PHP cliente for Instagram API
