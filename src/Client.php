@@ -12,6 +12,7 @@ class Client
     private $acess_token;
     private $redirect_uri;
     private $scope;
+    private $guzzleHttpClient;
 
     private $endpoints = [
         'auth' => 'https://api.instagram.com/oauth/authorize/?client_id=%s&redirect_uri=%s&response_type=code&scope=%s',
@@ -24,11 +25,13 @@ class Client
         array_map(function($value, $key){
             $this->{$key} = $value;
         }, $options, array_keys($options));
+
+        $this->guzzleHttpClient  = new \GuzzleHttp\Client;
     }
 
     public function makeRequest(string $request, string $url, array $options): string
     {
-        return (string) (new \GuzzleHttp\Client)
+        return (string) $this->guzzleHttpClient
         ->request($request, $url, $options)
         ->getBody();
     }
@@ -52,7 +55,7 @@ class Client
 
         $this->setAccessToken((json_decode($requestAccessToken))->access_token);
     }
-
+    
     public function setAccessToken(string $acess_token): void
     {
         $this->acess_token = $acess_token;
