@@ -106,13 +106,4 @@ class Client
         return $this->config['acess_token'];
     }
     
-    public function getMedia(string $mediaID): string
-    {
-        return sprintf($endpoints['media'], $mediaID);
-    }
-
-    public function login()
-    {
-        
-    }
 }
