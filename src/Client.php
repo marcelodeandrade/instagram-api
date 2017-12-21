@@ -7,11 +7,18 @@ namespace InstagramAPI;
  */
 class Client
 {
-    private $client_id;
-    private $client_secret;
-    private $acess_token;
-    private $redirect_uri;
-    private $scope;
+    /**
+     * Array for config keys to call API
+     * 
+     * client_id
+     * client_secret
+     * acess_token
+     * redirect_uri
+     * scope
+     *
+     * @var [array]
+     */
+    private $config;
     private $guzzleHttpClient;
 
     private $endpoints = [
@@ -20,12 +27,9 @@ class Client
         'media' => 'https://api.instagram.com/v1/media/%s/likes',
     ];
 
-    public function __construct($options)
+    public function __construct($config)
     {
-        array_map(function($value, $key){
-            $this->{$key} = $value;
-        }, $options, array_keys($options));
-
+        $this->config = $config;
         $this->guzzleHttpClient  = new \GuzzleHttp\Client;
     }
 
@@ -38,16 +42,16 @@ class Client
     
     public function getAuthURI(): string
     {
-        return sprintf($this->endpoints['auth'], $this->client_id, $this->redirect_uri, $this->scope);
+        return sprintf($this->endpoints['auth'], $this->config['client_id'], $this->config['redirect_uri'], $this->config['scope']);
     }
 
     public function requestAccessToken(string $code): void
     {
         $options = [
-            'client_id'     => $this->client_id,
-            'client_secret' => $this->client_secret,
+            'client_id'     => $this->config['client_id'],
+            'client_secret' => $this->config['client_secret'],
             'grant_type'    => 'authorization_code',
-            'redirect_uri'  => $this->redirect_uri,
+            'redirect_uri'  => $this->config['redirect_uri'],
             'code'          => $code,
         ];
 
@@ -58,12 +62,12 @@ class Client
     
     public function setAccessToken(string $acess_token): void
     {
-        $this->acess_token = $acess_token;
+        $this->config['acess_token'] = $acess_token;
     }
 
     public function getAcessToken(): string
     {
-        return $this->acess_token;
+        return $this->config['acess_token'];
     }
     
     public function getMedia(string $mediaID): string
